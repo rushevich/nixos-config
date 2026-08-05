@@ -1,4 +1,15 @@
 { self, inputs, ... }: {
+  flake.nixosModules.mako = { pkgs, lib, ... }: {
+    systemd.user.services.mako = {
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myMako;
+        Restart = "on-failure";
+      };
+    };
+  };
   perSystem = { pkgs, lib, ... }: {
     packages.myMako = inputs.wrapper-modules.wrappers.mako.wrap {
       inherit pkgs;

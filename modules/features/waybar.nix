@@ -1,4 +1,15 @@
 { self, inputs, ... }: {
+  flake.nixosModules.waybar = { pkgs, lib, ... }: {
+    systemd.user.services.waybar = {
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myWaybar;
+        Restart = "on-failure";
+      };
+    };
+  };
   perSystem = { pkgs, lib, ... }: {
     packages.myWaybar = inputs.wrapper-modules.wrappers.waybar.wrap {
       inherit pkgs;

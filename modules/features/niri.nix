@@ -36,12 +36,12 @@
         layout.gaps = 5;
 
 	spawn-at-startup = [ 
-		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myMako)
-		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.mySwayidle)
-		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myWaybar)
+    # we can leave this as spawn, not very important
 		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w1.jpg}" "-m" "fill" ]
+    # spawning through 
     [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
-    [ (lib.getExe pkgs.emacs-pgtk) "--daemon" ]
+    # moved to spawning through HM
+#    [ (lib.getExe pkgs.emacs-pgtk) "--daemon" ]
 	];
 
   xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
@@ -125,6 +125,9 @@
           # Session
           "Mod+Shift+E".quit = _: {};
           "Mod+Shift+P".power-off-monitors = _: {};
+
+          # General
+          "Mod+Shift+Q".spawn = [ "systemctl" "poweroff"];
         };
 	
       };

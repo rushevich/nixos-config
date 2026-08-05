@@ -1,4 +1,15 @@
 { self, inputs, ... }: {
+  flake.nixosModules.swayidle = { pkgs, lib, ... }: {
+    systemd.user.services.swayidle = {
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.mySwayidle;
+        Restart = "on-failure";
+      };
+    };
+  };
 	perSystem = { pkgs, lib, self', ... }: {
 		packages.mySwayidle = inputs.wrapper-modules.wrappers.swayidle.wrap {
 			inherit pkgs;
