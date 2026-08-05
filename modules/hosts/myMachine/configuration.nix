@@ -12,6 +12,11 @@
 	        self.nixosModules.fonts
 	        self.nixosModules.zen
     	    self.nixosModules.hm
+          self.nixosModules.waybar
+          self.nixosModules.swayidle
+          self.nixosModules.mako
+          self.nixosModules.hyprlock
+          self.nixosModules.imv
         ];
 
       # Use the systemd-boot EFI boot loader.

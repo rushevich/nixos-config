@@ -127,7 +127,8 @@
           "Mod+Shift+P".power-off-monitors = _: {};
 
           # General
-          "Mod+Shift+Q".spawn = [ "systemctl" "poweroff"];
+          # "Mod+Shift+Q".spawn = [ "systemctl" "poweroff"];
+          "Mod+Escape".spawn = [ "wlogout" ];
         };
 	
       };
