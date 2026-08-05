@@ -10,6 +10,7 @@
         margin-top = 6;
         margin-left = 8;
         margin-right = 8;
+        margin-bottom = 6;
 
         modules-left = [ "niri/workspaces" "niri/window" ];
         modules-center = [ "clock" ];
@@ -29,30 +30,61 @@
           tooltip-format = "<tt>{calendar}</tt>";
         };
         cpu = {
-          format = "  {usage}%";
+          format = "CPU {icon} {usage:02}%";
+          format-icons = [
+            "<span size='10pt' color='#4a4f5a'>░░░░░░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>█░░░░░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>██░░░░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>███░░░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>████░░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>█████░░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>██████░░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>███████░░░</span>"
+            "<span size='10pt' color='#7fa0c4'>████████░░</span>"
+            "<span size='10pt' color='#7fa0c4'>█████████░</span>"
+            "<span size='10pt' color='#7fa0c4'>██████████</span>"
+          ];
           interval = 2;
         };
+
         memory = {
-          format = "  {percentage}%";
+          format = "MEM {icon} {percentage:02}%";
+          format-icons = [
+            "<span size='10pt' color='#4a4f5a'>░░░░░░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>█░░░░░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>██░░░░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>███░░░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>████░░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>█████░░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>██████░░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>███████░░░</span>"
+            "<span size='10pt' color='#8fa8c8'>████████░░</span>"
+            "<span size='10pt' color='#8fa8c8'>█████████░</span>"
+            "<span size='10pt' color='#8fa8c8'>██████████</span>"
+          ];
           interval = 5;
         };
+
         battery = {
-          format = "{icon}  {capacity}%";
-          format-charging = "  {capacity}%";
-          format-icons = [ "" "" "" "" "" ];
-          states = { warning = 30; critical = 15; };
-          interval = 10;
+          format = "BAT {icon} {capacity}%";
+          format-icons = {
+            default = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            charging = [ "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
+          };
+          states = { warning = 20; critical = 10; };
         };
         network = {
-          format-wifi = "  {signalStrength}%";
-          format-ethernet = "  eth";
-          format-disconnected = "  off";
+          format = "NET";
+          format-wifi = "NET {icon} {signalStrength}%";
+          format-ethernet = "NET  eth";
+          format-disconnected = "NET ✕";
+          format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           tooltip-format = "{ifname}: {ipaddr}";
         };
         pulseaudio = {
-          format = "{icon}  {volume}%";
-          format-muted = "  muted";
-          format-icons = { default = [ "" "" "" ]; };
+          format = "VOL {icon} {volume}%";
+          format-icons = { default = [ "󰕿" "󰖀" "󰕾" ]; };
+          format-muted = "VOL 󰝟";
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           scroll-step = 5;
         };
@@ -65,7 +97,6 @@
           font-size: 13px;
           min-height: 0;
         }
-
         window#waybar {
           background: transparent;
           color: #c8ccd4;
