@@ -2,7 +2,6 @@
 	home.packages = with pkgs; [
 # C/C++ toolchain
 		gcc16
-			clang
 			clang-tools        # clangd
 			cmake
 			ninja
@@ -28,7 +27,7 @@
 			wget
 
 # nix tooling
-			nixfmt-rfc-style
+			nixfmt
 			nil                # nix language server
 			];
 		       }

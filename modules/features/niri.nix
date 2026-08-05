@@ -9,9 +9,11 @@
     packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       settings = {
+        prefer-no-csd = _: {};
 	input = {
 		keyboard = {
 			xkb.layout = "us,ua";
+			xkb.options = "caps:ctrl_modifier";
 		};
 
 		touchpad = {
@@ -29,7 +31,10 @@
 		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.mySwayidle)
 		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myWaybar)
 		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w1.jpg}" "-m" "fill" ]
+    [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
 	];
+
+  xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
 	hotkey-overlay.skip-at-startup = _: {};
 
@@ -40,7 +45,7 @@
           # Programs
           "Mod+Return".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
           "Mod+D".spawn = [ (lib.getExe pkgs.fuzzel) ];
-          "Super+Alt+L".spawn = [ (lib.getExe pkgs.swaylock) ];
+          "Super+Alt+L".spawn = [ (lib.getExe pkgs.hyprlock) ];
 	  "Mod+B".spawn = [ "zen" ];
 
           # Window management
@@ -97,9 +102,9 @@
           "Ctrl+Print".screenshot-screen = _: {};
           "Alt+Print".screenshot-window = _: {};
 
-          # Volume (spawn-sh only where the args justify it; here spawn is fine)
-          "XF86AudioRaiseVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" ];
-          "XF86AudioLowerVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" ];
+          # Volume
+          "XF86AudioRaiseVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+" ];
+          "XF86AudioLowerVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-" ];
           "XF86AudioMute".spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
 
           # Session

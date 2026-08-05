@@ -64,8 +64,20 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     neovim
-    git
+    nautilus
   ];
+
+  security.polkit.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
+    ];
+  };
+
+  services.gnome.gnome-keyring.enable = true;
 
   programs.dconf.profiles.user.databases = [
   {

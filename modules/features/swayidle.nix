@@ -5,7 +5,7 @@
 			timeouts = [
 			{
 				timeout = 300;   # 5 min idle: lock
-					command = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.mySwaylock;
+					command = lib.getExe pkgs.hyprlock;
 			}
 			{
 				timeout = 600;   # 10 min idle: screen off, back on when active
@@ -14,7 +14,7 @@
 			}
 			];
 			events = {
-				before-sleep = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.mySwaylock;
+				before-sleep = lib.getExe pkgs.hyprlock;
 			};
 		};
 	};
