@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+ { self, inputs, ... }: {
   flake.nixosModules.hyprlock = { pkgs, ... }: {
     security.pam.services.hyprlock = {};
     environment.systemPackages = [

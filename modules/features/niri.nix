@@ -44,8 +44,8 @@
 
           # Programs
           "Mod+Return".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
-          "Mod+D".spawn = [ (lib.getExe pkgs.fuzzel) ];
-          "Super+Alt+L".spawn = [ (lib.getExe pkgs.hyprlock) ];
+          "Mod+D".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel) ];
+          "Super+Alt+L".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myHyprlock) ];
 	  "Mod+B".spawn = [ "zen" ];
 
           # Window management

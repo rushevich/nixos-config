@@ -1,11 +1,11 @@
 { self, inputs, ... }: {
-	perSystem = { pkgs, lib, ... }: {
+	perSystem = { pkgs, lib, self', ... }: {
 		packages.mySwayidle = inputs.wrapper-modules.wrappers.swayidle.wrap {
 			inherit pkgs;
 			timeouts = [
 			{
 				timeout = 300;   # 5 min idle: lock
-					command = lib.getExe pkgs.hyprlock;
+					command = lib.getExe self'.packages.myHyprlock;
 			}
 			{
 				timeout = 600;   # 10 min idle: screen off, back on when active
@@ -14,8 +14,8 @@
 			}
 			];
 			events = {
-				before-sleep = lib.getExe pkgs.hyprlock;
+				before-sleep = lib.getExe self'.packages.myHyprlock;
 			};
 		};
 	};
-		       }
+}
