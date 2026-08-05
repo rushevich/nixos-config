@@ -15,7 +15,7 @@
 
         font = {
           normal = {
-            family = "Iosevka";
+            family = "Iosevka Nerd Font Mono";
             style = "Regular";
           };
           size = 12;

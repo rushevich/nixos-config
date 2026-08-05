@@ -2,13 +2,13 @@
 	flake.nixosModules.fonts = { pkgs, ... }: {
 	fonts = {
 		packages = with pkgs; [
-			iosevka-bin
+			nerd-fonts.iosevka
 			noto-fonts-color-emoji
 			noto-fonts
 		];
 
 		fontconfig.defaultFonts = {
-			monospace = [ "Iosevka" ];
+			monospace = [ "Iosevka Nerd Font Mono" ];
 			# sansSerif = [ "Iosevka" ];
 			emoji = [ "Noto Color Emoji" ];
 		};

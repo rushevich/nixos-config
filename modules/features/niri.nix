@@ -10,6 +10,12 @@
       inherit pkgs;
       settings = {
         prefer-no-csd = _: {};
+        
+        cursor = {
+          xcursor-theme = "Bibata Modern-Classic";
+          xcursor-size = 24;
+        };
+        
 	input = {
 		keyboard = {
 			xkb.layout = "us,ua";

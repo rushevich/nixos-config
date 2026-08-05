@@ -5,68 +5,135 @@
       settings = {
         layer = "top";
         position = "top";
-        height = 30;
-        spacing = 4;
+        height = 34;
+        spacing = 0;
+        margin-top = 6;
+        margin-left = 8;
+        margin-right = 8;
 
-        modules-left = [ "niri/workspaces" ];
+        modules-left = [ "niri/workspaces" "niri/window" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "battery" "tray" ];
+        modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" "tray" ];
 
         "niri/workspaces" = {
-          format = "{value}";
+          format = "{index}";
         };
-
+        "niri/window" = {
+          format = "{title}";
+          max-length = 50;
+          separate-outputs = true;
+        };
         clock = {
-          format = "{:%H:%M  %a %d %b}";
+          format = "{:%H:%M}";
+          format-alt = "{:%a %d %b  %H:%M}";
           tooltip-format = "<tt>{calendar}</tt>";
         };
-
-        battery = {
-          format = "{capacity}% {icon}";
-          format-icons = [ "" "" "" "" "" ];
-          format-charging = "{capacity}% ";
-          states = { warning = 30; critical = 15; };
+        cpu = {
+          format = "  {usage}%";
+          interval = 2;
         };
-
+        memory = {
+          format = "  {percentage}%";
+          interval = 5;
+        };
+        battery = {
+          format = "{icon}  {capacity}%";
+          format-charging = "  {capacity}%";
+          format-icons = [ "" "" "" "" "" ];
+          states = { warning = 30; critical = 15; };
+          interval = 10;
+        };
         network = {
-          format-wifi = "{essid} ";
-          format-ethernet = "eth ";
-          format-disconnected = "off ";
+          format-wifi = "  {signalStrength}%";
+          format-ethernet = "  eth";
+          format-disconnected = "  off";
           tooltip-format = "{ifname}: {ipaddr}";
         };
-
         pulseaudio = {
-          format = "{volume}% {icon}";
-          format-muted = "muted ";
+          format = "{icon}  {volume}%";
+          format-muted = "  muted";
           format-icons = { default = [ "" "" "" ]; };
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          scroll-step = 5;
         };
-
-        tray = { spacing = 10; };
+        tray = { spacing = 8; };
       };
 
       "style.css".content = ''
         * {
-          font-family: monospace;
+          font-family: "Iosevka Nerd Font Mono", monospace;
           font-size: 13px;
+          min-height: 0;
         }
+
         window#waybar {
-          background: #1e1e2e;
-          color: #cdd6f4;
+          background: transparent;
+          color: #c8ccd4;
         }
+
+        /* module islands */
+        .modules-left,
+        .modules-center,
+        .modules-right {
+          background: #1b1e26;
+          border: 1px solid #2a2f3a;
+          border-radius: 10px;
+          padding: 0 6px;
+          margin: 0 4px;
+        }
+
         #workspaces button {
-          padding: 0 8px;
-          color: #cdd6f4;
+          padding: 0 9px;
+          margin: 3px 2px;
+          color: #6b7280;
+          background: transparent;
+          border-radius: 7px;
+        }
+        #workspaces button:hover {
+          background: #262b36;
+          color: #c8ccd4;
         }
         #workspaces button.active {
-          background: #89b4fa;
-          color: #1e1e2e;
+          background: #3b5b7f;
+          color: #dfe6f0;
         }
-        #clock, #battery, #network, #pulseaudio, #tray {
+        #workspaces button.urgent {
+          background: #7f4a5a;
+          color: #f0dfe4;
+        }
+
+        #window {
+          color: #8b93a3;
           padding: 0 10px;
         }
-        #battery.warning { color: #f9e2af; }
-        #battery.critical { color: #f38ba8; }
+
+        #clock {
+          color: #9cb4d4;
+          font-weight: bold;
+          padding: 0 14px;
+        }
+
+        #cpu,
+        #memory,
+        #pulseaudio,
+        #network,
+        #battery,
+        #tray {
+          padding: 0 10px;
+          color: #aeb6c4;
+        }
+
+        #cpu { color: #7fa0c4; }
+        #memory { color: #8fa8c8; }
+        #pulseaudio { color: #9cb4d4; }
+        #network { color: #7f9fc0; }
+
+        #battery { color: #a0c0a0; }
+        #battery.warning { color: #d4c47f; }
+        #battery.critical { color: #d48f9f; }
+        #battery.charging { color: #8fc4a8; }
+
+        #pulseaudio.muted { color: #5b616e; }
       '';
     };
   };
