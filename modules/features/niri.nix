@@ -10,9 +10,12 @@
       inherit pkgs;
       settings = {
         prefer-no-csd = _: {};
-        
+        environment = {
+          XCURSOR_THEME = "Bibata-Modern-Classic";
+          XCURSOR_SIZE = "24";
+        };
         cursor = {
-          xcursor-theme = "Bibata Modern-Classic";
+          xcursor-theme = "Bibata-Modern-Classic";
           xcursor-size = 24;
         };
         
@@ -112,6 +115,10 @@
           "XF86AudioRaiseVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+" ];
           "XF86AudioLowerVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-" ];
           "XF86AudioMute".spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+
+          # Brightness
+          "XF86MonBrightnessUp".spawn = [ "brightnessctl" "set" "5%+" ];
+          "XF86MonBrightnessDown".spawn = [ "brightnessctl" "set" "5%-" ];
 
           # Session
           "Mod+Shift+E".quit = _: {};
