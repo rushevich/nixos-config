@@ -41,6 +41,7 @@
 		(lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myWaybar)
 		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w1.jpg}" "-m" "fill" ]
     [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
+    [ (lib.getExe pkgs.emacs-pgtk) "--daemon" ]
 	];
 
   xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
@@ -55,7 +56,8 @@
           "Mod+Return".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
           "Mod+D".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel) ];
           "Super+Alt+L".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myHyprlock) ];
-	  "Mod+B".spawn = [ "zen" ];
+	        "Mod+B".spawn = [ "zen" ];
+          "Mod+E".spawn = [ "emacsclient" "-c" "-a" "\"\"" ];
 
           # Window management
           "Mod+Q".close-window = _: {};
