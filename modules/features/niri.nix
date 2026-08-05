@@ -37,7 +37,7 @@
 
 	spawn-at-startup = [ 
     # we can leave this as spawn, not very important
-		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w1.jpg}" "-m" "fill" ]
+		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w2.jpg}" "-m" "fill" ]
     # spawning through 
     [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
     # moved to spawning through HM
@@ -128,7 +128,7 @@
 
           # General
           # "Mod+Shift+Q".spawn = [ "systemctl" "poweroff"];
-          "Mod+Escape".spawn = [ "wlogout" ];
+          "Mod+Escape".spawn = [ "wlogout" "-b" "5" ];
         };
 	
       };

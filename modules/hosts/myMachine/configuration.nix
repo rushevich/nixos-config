@@ -91,6 +91,23 @@
       programs.zsh.enable = true;
       users.users.george.shell = pkgs.zsh;
 
+      zramSwap = {
+        enable = true;
+        memoryPercent = 50;
+      };
+
+      services.logind.lidSwitch = "suspend";
+
+      systemd.services.disable-usb-wakeup = {
+        description = "Disable XHC0 wakeup (spurious resume fix)";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.bash}/bin/bash -c '"
+                      + "grep -q \"^XHC0.*enabled\" /proc/acpi/wakeup && echo XHC0 > /proc/acpi/wakeup; true'";
+        };
+      };
+      
       # Some programs need SUID wrappers, can be configured further or are
       # started in user sessions.
       # programs.mtr.enable = true;
