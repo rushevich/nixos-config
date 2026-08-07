@@ -53,8 +53,8 @@
           "Mod+Shift+Slash".show-hotkey-overlay = _: {};
 
           # Programs
-          "Mod+Return".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
-          "Mod+D".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel) ];
+          "Mod+T".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
+          "Mod+Return".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel) ];
           "Super+Alt+L".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myHyprlock) ];
 	        "Mod+B".spawn = [ "zen" ];
           "Mod+E".spawn = [ "emacsclient" "-c" "-a" "\"\"" ];

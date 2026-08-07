@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  imports = [ ./emacs.nix ./git.nix ./dev.nix ./vesktop.nix ./cursors.nix ./zsh.nix ./desktop.nix ./logout.nix ];
+  imports = [ ./emacs.nix ./git.nix ./dev.nix ./vesktop.nix ./cursors.nix ./zsh.nix ./desktop.nix ./logout.nix ./craft.nix ];
   home = {
     username = "george";
     homeDirectory = "/home/george";
