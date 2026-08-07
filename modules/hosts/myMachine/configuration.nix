@@ -96,7 +96,7 @@
         memoryPercent = 50;
       };
 
-      services.logind.lidSwitch = "suspend";
+      services.logind.settings.Login.HandleLidSwitch = "suspend";
 
       systemd.services.disable-usb-wakeup = {
         description = "Disable XHC0 wakeup (spurious resume fix)";
