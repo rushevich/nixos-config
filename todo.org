@@ -1,4 +1,4 @@
-* NixOS Config Todo List [0/11]
+* NixOS Config Todo List [2/11]
 ** TODO Update niri keybinds to be exhaustive :niri:
 ** TODO Update niri window styling :niri:rice:
 ** TODO Ship config with a flake for C++ dev :dev:hm:
@@ -8,5 +8,7 @@
 ** TODO Integrate papirus icons (dark) :rice:
 ** TODO Bundle zshrc :rice:hm:
 ** TODO Look into email client :qol:apps:
-** TODO Integrate screenshot tools into niri :qol:niri:
-** TODO Install and integrate satty (or whatever it's called, the screenshot annotation tool) :qol:niri:
+** DONE Integrate screenshot tools into niri                       :qol:niri:
+CLOSED: [2026-08-07 Fri 20:25]
+** DONE Install and integrate satty (or whatever it's called, the screenshot annotation tool) :qol:niri:
+CLOSED: [2026-08-07 Fri 20:25]

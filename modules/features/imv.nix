@@ -15,7 +15,7 @@
           overlay_text_color = "#e0eeee";
           overlay_background_color = "#171717";
           scaling_mode = "shrink";
-          upscaling_method = "nearest";
+          upscaling_method = "nearest_neighbour";
         };
         binds = {
           "q" = "quit";

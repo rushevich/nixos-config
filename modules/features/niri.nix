@@ -64,6 +64,8 @@
           "Mod+F".maximize-column = _: {};
           "Mod+Shift+F".fullscreen-window = _: {};
           "Mod+C".center-column = _: {};
+          "Mod+V".toggle-window-floating = _: {};
+          "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
 
           # Focus movement (arrows + hjkl)
           "Mod+Left".focus-column-left = _: {};
@@ -101,15 +103,18 @@
           "Mod+Shift+4".move-column-to-workspace = 4;
           "Mod+Shift+5".move-column-to-workspace = 5;
 
-          # Column sizing / consuming
+          # sizing / consuming
           "Mod+R".switch-preset-column-width = _: {};
           "Mod+Minus".set-column-width = "-10%";
           "Mod+Equal".set-column-width = "+10%";
           "Mod+Comma".consume-window-into-column = _: {};
           "Mod+Period".expel-window-from-column = _: {};
+          "Mod+Shift+Minus".set-window-height = "-10%";
+          "Mod+Shift+Equal".set-window-height = "+10%";
+          "Mod+Ctrl+R".reset-window-height = _: {};
 
           # Screenshots
-          "Print".screenshot = _: {};
+          "Print".spawn = [ "screenshot-region" ];
           "Ctrl+Print".screenshot-screen = _: {};
           "Alt+Print".screenshot-window = _: {};
 
@@ -127,8 +132,8 @@
           "Mod+Shift+P".power-off-monitors = _: {};
 
           # General
-          # "Mod+Shift+Q".spawn = [ "systemctl" "poweroff"];
           "Mod+Escape".spawn = [ "wlogout" "-b" "5" ];
+          "Mod+O".toggle-overview = _: {};
         };
 	
       };

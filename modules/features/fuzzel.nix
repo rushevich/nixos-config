@@ -2,7 +2,7 @@
 {
 	flake.nixosModules.fuzzel = { pkgs, lib, ... }:
 	{
-		environment.systemPackages = [ self.packages.${pkgs.stdevn.hostPlatform.system}.myFuzzel ];	
+		environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel ];	
 	};
 
 	perSystem = { pkgs, lib, ... }:
@@ -18,6 +18,7 @@
           auto-select = false;
           font = "Iosevka Nerd Font Mono-14";
           hide-before-typing = true;
+          icon-theme = "Papirus-Dark";
         };
 				border = { radius = 0; width = 1; };
         colors = {

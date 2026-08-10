@@ -17,13 +17,14 @@
           self.nixosModules.mako
           self.nixosModules.hyprlock
           self.nixosModules.imv
+          self.nixosModules.fuzzel
         ];
 
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
 
-      networking.hostName = "nixos-btw"; # Define your hostname.
+      networking.hostName = "v15climber"; # Define your hostname.
 
       # Configure network connections interactively with nmcli or nmtui.
       networking.networkmanager.enable = true;
@@ -63,6 +64,7 @@
         neovim
         nautilus
         brightnessctl
+        papirus-icon-theme
       ];
 
       security.polkit.enable = true;
