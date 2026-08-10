@@ -90,8 +90,8 @@
           # Workspaces (niri stacks them vertically)
           "Mod+Page_Up".focus-workspace-up = _: {};
           "Mod+Page_Down".focus-workspace-down = _: {};
-          "Mod+I".focus-workspace-up = _: {};
-          "Mod+U".focus-workspace-down = _: {};
+          "Mod+U".focus-workspace-up = _: {};
+          "Mod+I".focus-workspace-down = _: {};
           "Mod+1".focus-workspace = 1;
           "Mod+2".focus-workspace = 2;
           "Mod+3".focus-workspace = 3;
