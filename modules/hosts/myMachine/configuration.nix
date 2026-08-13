@@ -32,6 +32,8 @@
       # Set your time zone.
       time.timeZone = "America/New_York";
 
+      # For lenovo trackpad to work
+      services.xserver.libinput.enable = true;
       # Configure network proxy if necessary
       # networking.proxy.default = "http://user:password@proxy:port/";
       # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
