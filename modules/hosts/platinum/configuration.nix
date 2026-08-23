@@ -1,11 +1,11 @@
 { self, inputs, ... }: {
 
-	flake.nixosModules.myMachineConfiguration = { config, lib, pkgs, ... }:
+	flake.nixosModules.platinumConfiguration = { config, lib, pkgs, ... }:
 
     {
       imports =
         [ # Include the results of the hardware scan.
-    	    self.nixosModules.myMachineHardware
+    	    self.nixosModules.platinumHardware
 	        self.nixosModules.alacritty
 	        self.nixosModules.niri
 	        self.nixosModules.greetd
@@ -24,7 +24,7 @@
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
 
-      networking.hostName = "v15climber"; # Define your hostname.
+      networking.hostName = "platinum";
 
       # Configure network connections interactively with nmcli or nmtui.
       networking.networkmanager.enable = true;

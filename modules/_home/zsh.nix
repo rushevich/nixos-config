@@ -17,7 +17,7 @@
     precmd() { vcs_info }
     zstyle ':vcs_info:git:*' formats '%b '
              
-    PROMPT='%F{}%f%F{#4682b4}%~%f%F{#eee685} ''${vcs_info_msg_0_}%f $ '
+    PROMPT='%F{}%f%F{#4682b4}%~%f%F{#eee685} ''${vcs_info_msg_0_}%f$ '
     RPROMPT='%F{#131313}%*%f'
     '';
   };

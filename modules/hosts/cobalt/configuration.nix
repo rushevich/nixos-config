@@ -1,11 +1,11 @@
 { self, inputs, ... }: {
-flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
+flake.nixosModules.cobaltConfiguration = { config, libs, pkgs, ... }:
 
 
 {
   imports =
     [ # Include the results of the hardware scan.
-    	    self.nixosModules.desktopHardware
+    	    self.nixosModules.cobaltHardware
 	        self.nixosModules.alacritty
 	        self.nixosModules.niri
 	        self.nixosModules.greetd
@@ -25,7 +25,7 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos-btw"; # Define your hostname.
+  networking.hostName = "cobalt"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;

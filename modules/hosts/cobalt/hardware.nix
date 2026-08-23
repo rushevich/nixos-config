@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-flake.nixosModules.desktopHardware = 
+flake.nixosModules.cobaltHardware = 
 { config, lib, pkgs, modulesPath, ... }:
 
 {

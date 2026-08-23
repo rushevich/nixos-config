@@ -1,6 +1,6 @@
 { self, inputs, ... }: {
 	
-	flake.nixosModules.myMachineHardware = { config, lib, pkgs, modulesPath, ... }:
+	flake.nixosModules.platinumHardware = { config, lib, pkgs, modulesPath, ... }:
 
 {
   imports =
