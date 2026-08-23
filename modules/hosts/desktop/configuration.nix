@@ -5,14 +5,27 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
-    	self.nixosModules.desktopHardware
+    	    self.nixosModules.myMachineHardware
+	        self.nixosModules.alacritty
+	        self.nixosModules.niri
+	        self.nixosModules.greetd
+	        self.nixosModules.fonts
+	        self.nixosModules.zen
+    	    self.nixosModules.hm
+          self.nixosModules.waybar
+          self.nixosModules.swayidle
+          self.nixosModules.mako
+          self.nixosModules.hyprlock
+          self.nixosModules.imv
+          self.nixosModules.fuzzel
+
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "v15climber"; # Define your hostname.
+  networking.hostName = "nixos-btw"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
@@ -32,31 +45,6 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.george = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -65,8 +53,6 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
     ];
   };
 
-  programs.firefox.enable = true;
-
  # List packages installed in system profile.
  # You can use https://search.nixos.org/ to find more packages (and options).
  environment.systemPackages = with pkgs; [
@@ -74,9 +60,53 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
    wget
    git
    neovim 
-   alacritty
+ 	brightnessctl
+	papirus-icon-theme
+	nautilus
  ];
 
+ security.polkit.enable = true;
+ xdg.portal = {
+	enable = true;
+	extraPortals = with pkgs; [
+	xdg-desktop-portal-gtk
+	xdg-desktop-portal-gnome
+ };
+
+ services.gnome.gnome-keyring.enable = true;
+
+ programs.dconf.profiles.user.databases = [
+	{
+		lockAll = true;
+		settings = {
+		"org/gnome/desktop/interface" = {
+		color-scheme = "prefer-dark";
+		};
+		};
+	}
+ ];
+      programs.zsh.enable = true;
+      users.users.george.shell = pkgs.zsh;
+
+      zramSwap = {
+        enable = true;
+        memoryPercent = 50;
+      };
+
+      services.logind.settings.Login.HandleLidSwitch = "suspend";
+
+      systemd.services.disable-usb-wakeup = {
+        description = "Disable XHC0 wakeup (spurious resume fix)";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.bash}/bin/bash -c '"
+                      + "grep -q \"^XHC0.*enabled\" /proc/acpi/wakeup && echo XHC0 > /proc/acpi/wakeup; true'";
+        };
+      };
+
+      hardware.keyboard.qmk.enable = true;
+ 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -119,7 +149,6 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
-	nix.settings.experimental-feature = [ "nix-command" "flakes" ];
+	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 };
 }
-
