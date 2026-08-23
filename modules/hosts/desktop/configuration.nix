@@ -5,7 +5,7 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
-    	    self.nixosModules.myMachineHardware
+    	    self.nixosModules.desktopHardware
 	        self.nixosModules.alacritty
 	        self.nixosModules.niri
 	        self.nixosModules.greetd
@@ -71,6 +71,7 @@ flake.nixosModules.desktopConfiguration = { config, libs, pkgs, ... }:
 	extraPortals = with pkgs; [
 	xdg-desktop-portal-gtk
 	xdg-desktop-portal-gnome
+	];
  };
 
  services.gnome.gnome-keyring.enable = true;
