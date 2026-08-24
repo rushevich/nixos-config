@@ -1,14 +1,15 @@
 { self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, lib, ... }: {
+  flake.nixosModules.niri = { pkgs, lib, config, ... }: {
     programs.niri = {
       enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+      package = if config.networking.hostName == "platinum"
+                then self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-laptop
+                  else self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-desktop;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
-    packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-      inherit pkgs;
-      settings = {
+  perSystem = { pkgs, lib, ... }:
+    let
+      commonSettings = {
         prefer-no-csd = _: {};
         environment = {
           XCURSOR_THEME = "Bibata-Modern-Classic";
@@ -135,6 +136,26 @@
         };
 	
       };
+    in {
+      packages.myNiri-laptop = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = commonSettings;
+      };
+
+      packages.myNiri-desktop = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = commonSettings // {
+          outputs = {
+            "DP-3" = {
+              mode = "2560x1440@165.001";
+              position = _: { props = { x = 0; y = 0; }; };
+            };
+            "HDMI-A-1" = {
+              mode = "1920x1080@60.000";
+              position = _: { props = { x = 2560; y = 0; }; };
+            };
+          };
+        };
+      };
     };
-  };
 }
