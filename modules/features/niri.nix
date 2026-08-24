@@ -4,7 +4,7 @@
       enable = true;
       package = if config.networking.hostName == "platinum"
                 then self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-laptop
-                  else self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-desktop;
+                else self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-desktop;
     };
   };
   perSystem = { pkgs, lib, ... }:
@@ -20,37 +20,33 @@
           xcursor-size = 24;
         };
         
-	input = {
-		keyboard = {
-			xkb.layout = "us,ua";
-			xkb.options = "caps:ctrl_modifier";
-		};
+	      input = {
+		      keyboard = {
+			      xkb.layout = "us,ua";
+			      xkb.options = "caps:ctrl_modifier";
+		      };
 
-		touchpad = {
-			natural-scroll = _: {};
-			scroll-method = "two-finger";
-			scroll-factor = 0.5;   # slower than default
-				tap = _: {};
-			accel-profile = "flat";
-		};
-	};
+		      touchpad = {
+			      natural-scroll = _: {};
+			      scroll-method = "two-finger";
+			      scroll-factor = 0.5;   # slower than default
+				    tap = _: {};
+			      accel-profile = "flat";
+		      };
+	      };
         layout.gaps = 5;
 
-	spawn-at-startup = [ 
-    # we can leave this as spawn, not very important
-		[ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w2.jpg}" "-m" "fill" ]
-    # spawning through 
-    [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
-    # moved to spawning through HM
-#    [ (lib.getExe pkgs.emacs-pgtk) "--daemon" ]
-	];
+	      spawn-at-startup = [ 
+		      [ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w2.jpg}" "-m" "fill" ]
+          [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
+	      ];
 
-  xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
+        xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
-	hotkey-overlay.skip-at-startup = _: {};
+	      hotkey-overlay.skip-at-startup = _: {};
 
         binds = {
-          # Hotkey overlay: niri's own "show all binds" screen
+          # Hotkey overlay
           "Mod+Shift+Slash".show-hotkey-overlay = _: {};
 
           # Programs
@@ -134,7 +130,7 @@
           "Mod+Escape".spawn = [ "wlogout" "-b" "5" ];
           "Mod+O".toggle-overview = _: {};
         };
-	
+	      
       };
     in {
       packages.myNiri-laptop = inputs.wrapper-modules.wrappers.niri.wrap {
