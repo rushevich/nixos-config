@@ -133,6 +133,17 @@
           # General
           "Mod+Escape".spawn = [ "wlogout" "-b" "5" ];
           "Mod+O".toggle-overview = _: {};
+
+          # Monitors
+          
+          "Mod+BracketLeft".focus-monitor-left = _: {};
+          "Mod+BracketRight".focus-monitor-right = _: {};
+          
+          "Mod+Shift+BracketLeft".move-column-to-monitor-left = _: {};
+          "Mod+Shift+BracketRight".move-column-to-monitor-right = _: {};
+
+          "Mod+Ctrl+BracketLeft".move-workspace-to-monitor-left = _: {};
+          "Mod+Ctrl+BracketRight".move-workspace-to-monitor-right = _: {};
         };
 	
       };
