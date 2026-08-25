@@ -1,33 +1,33 @@
 { pkgs , ... }: {
 	home.packages = with pkgs; [
-# C/C++ toolchain
+    # C/C++ toolchain
 		gcc16
-			clang-tools        # clangd
-			cmake
-			ninja
-			gnumake
-			gdb
-			lldb
-			pkg-config
+		clang-tools        # clangd
+		cmake
+		ninja
+		gnumake
+		gdb
+		lldb
+		pkg-config
 
-# scripting
-			python3
+    # scripting
+		python3
 
-# language servers (for editor LSP everywhere)
-			lua-language-server
-			pyright
+    # language servers (for editor LSP everywhere)
+		lua-language-server
+		pyright
 
-# core dev utilities
-			git
-			ripgrep
-			fd
-			jq
-			tree
-			curl
-			wget
+    # core dev utilities
+		git
+		ripgrep
+		fd
+		jq
+		tree
+		curl
+		wget
 
-# nix tooling
-			nixfmt
-			nil                # nix language server
-			];
-		       }
+    # nix tooling
+		nixfmt
+		nil                # nix language server
+	];
+}

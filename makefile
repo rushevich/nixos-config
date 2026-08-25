@@ -1,8 +1,13 @@
-cur_flake := myMachine
+laptop-bld:
+	nixos-rebuild build --flake .#platinum
+laptop-swtch:
+	sudo nixos-rebuild switch --flake .#platinum	
+laptop-ng:
+	sudo nixos-rebuild switch --flake .#platinum && reboot
 
-build:
-	nixos-rebuild build --flake .#${cur_flake}
-switch:
-	sudo nixos-rebuild switch --flake .#${cur_flake}	
-new_generation:
-	sudo nixos-rebuild switch --flake .#${cur_flake} && reboot
+desktop-bld:
+	nixos-rebuild build --flake .#cobalt
+desktop-swtch:
+	sudo nixos-rebuild switch --flake .#cobalt	
+desktop-ng:
+	sudo nixos-rebuild switch --flake .#cobalt && reboot

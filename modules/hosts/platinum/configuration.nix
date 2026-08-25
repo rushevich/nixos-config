@@ -30,7 +30,8 @@
       networking.networkmanager.enable = true;
 
       # Set your time zone.
-      time.timeZone = "America/New_York";
+      # time.timeZone = "America/New_York";
+      services.automatic-timezoned.enable = true;
 
       # Configure network proxy if necessary
       # networking.proxy.default = "http://user:password@proxy:port/";
@@ -155,6 +156,7 @@
       # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
       system.stateVersion = "26.05"; # Did you read the comment?
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nixpkgs.config.allowUnfree = true;
     }
   ;
 
