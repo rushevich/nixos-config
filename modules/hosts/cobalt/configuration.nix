@@ -32,6 +32,7 @@ flake.nixosModules.cobaltConfiguration = { config, libs, pkgs, ... }:
 
   # Set your time zone.
   # time.timeZone = "America/New_York";
+  services.automatic-timezoned.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
