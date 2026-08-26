@@ -151,5 +151,17 @@ flake.nixosModules.cobaltConfiguration = { config, libs, pkgs, ... }:
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable real-time processing for audio to prevent dropouts
+  security.rtkit.enable = true;
+
+  # Ensure legacy PulseAudio is disabled to prevent conflicts
+  # hardware.pulseaudio.enable = false;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true; # This module translates audio for Discord
+  };
 };
 }
