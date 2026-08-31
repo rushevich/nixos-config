@@ -70,6 +70,7 @@
         papirus-icon-theme
         nautilus
         man-pages
+        openconnect 
       ];
 
       # thanks to: https://discourse.nixos.org/t/some-manpage-related-stuff-you-might-want-to-turn-on/38835
@@ -181,5 +182,7 @@
         alsa.support32Bit = true;
         pulse.enable = true; # This module translates audio for Discord
       };
+
+      nixpkgs.config.allowUnfree = true;
     };
 }

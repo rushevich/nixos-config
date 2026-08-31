@@ -16,7 +16,8 @@
     # language servers (for editor LSP everywhere)
 		lua-language-server
 		pyright
-
+                svls
+                
     # core dev utilities
 		git
 		ripgrep
