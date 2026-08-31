@@ -16,7 +16,7 @@
     # language servers (for editor LSP everywhere)
     lua-language-server
     pyright
-    slang-server
+    #slang-server
 
     # core dev utilities
     git
