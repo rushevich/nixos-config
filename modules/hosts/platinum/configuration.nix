@@ -1,24 +1,30 @@
 { self, inputs, ... }: {
 
-	flake.nixosModules.platinumConfiguration = { config, lib, pkgs, ... }:
+  flake.nixosModules.platinumConfiguration =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
 
     {
-      imports =
-        [ # Include the results of the hardware scan.
-    	    self.nixosModules.platinumHardware
-	        self.nixosModules.alacritty
-	        self.nixosModules.niri
-	        self.nixosModules.greetd
-	        self.nixosModules.fonts
-	        self.nixosModules.zen
-    	    self.nixosModules.hm
-          self.nixosModules.waybar
-          self.nixosModules.swayidle
-          self.nixosModules.mako
-          self.nixosModules.hyprlock
-          self.nixosModules.imv
-          self.nixosModules.fuzzel
-        ];
+      imports = [
+        # Include the results of the hardware scan.
+        self.nixosModules.platinumHardware
+        self.nixosModules.alacritty
+        self.nixosModules.niri
+        self.nixosModules.greetd
+        self.nixosModules.fonts
+        self.nixosModules.zen
+        self.nixosModules.hm
+        self.nixosModules.waybar
+        self.nixosModules.swayidle
+        self.nixosModules.mako
+        self.nixosModules.hyprlock
+        self.nixosModules.imv
+        self.nixosModules.fuzzel
+      ];
 
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
@@ -66,7 +72,17 @@
         nautilus
         brightnessctl
         papirus-icon-theme
+        openconnect
+        usbutils
       ];
+
+      services.udev.extraRules = ''
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
+      '';
 
       security.polkit.enable = true;
 
@@ -82,12 +98,12 @@
 
       programs.dconf.profiles.user.databases = [
         {
-	        lockAll = true; # prevents overriding
-		      settings = {
-			      "org/gnome/desktop/interface" = {
-				      color-scheme = "prefer-dark";
-			      };
-		      };
+          lockAll = true; # prevents overriding
+          settings = {
+            "org/gnome/desktop/interface" = {
+              color-scheme = "prefer-dark";
+            };
+          };
         }
       ];
 
@@ -106,13 +122,14 @@
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.bash}/bin/bash -c '"
-                      + "grep -q \"^XHC0.*enabled\" /proc/acpi/wakeup && echo XHC0 > /proc/acpi/wakeup; true'";
+          ExecStart =
+            "${pkgs.bash}/bin/bash -c '"
+            + "grep -q \"^XHC0.*enabled\" /proc/acpi/wakeup && echo XHC0 > /proc/acpi/wakeup; true'";
         };
       };
 
       hardware.keyboard.qmk.enable = true;
-      
+
       # Some programs need SUID wrappers, can be configured further or are
       # started in user sessions.
       # programs.mtr.enable = true;
@@ -155,9 +172,11 @@
       #
       # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
       system.stateVersion = "26.05"; # Did you read the comment?
-      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       nixpkgs.config.allowUnfree = true;
-    }
-  ;
+    };
 
 }
