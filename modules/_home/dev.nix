@@ -17,6 +17,7 @@
     lua-language-server
     pyright
     slang-server
+    verible
 
     # core dev utilities
     git
