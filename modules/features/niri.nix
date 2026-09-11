@@ -37,7 +37,7 @@
         layout.gaps = 5;
 
 	      spawn-at-startup = [ 
-		      [ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w2.jpg}" "-m" "fill" ]
+		      [ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w3.jpg}" "-m" "fill" ]
           [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
 	      ];
 

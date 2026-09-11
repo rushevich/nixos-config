@@ -111,7 +111,7 @@
 
       zramSwap = {
         enable = true;
-        ent = 50;
+        memoryPercent = 50;
       };
 
       services.logind.settings.Login.HandleLidSwitch = "suspend";

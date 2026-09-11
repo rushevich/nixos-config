@@ -26,7 +26,7 @@
 
       settings = {
         background = {
-          path = "${../../wallpapers/w2.jpg}";
+          path = "${../../wallpapers/w3.jpg}";
           fit = "Cover";
         };
         GTK.application_prefer_dark_theme = true;
