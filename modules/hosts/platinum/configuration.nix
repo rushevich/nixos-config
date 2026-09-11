@@ -36,8 +36,7 @@
       networking.networkmanager.enable = true;
 
       # Set your time zone.
-      # time.timeZone = "America/New_York";
-      services.automatic-timezoned.enable = true;
+      time.timeZone = "America/New_York"; # the automatic timezone wasn’t working
 
       # Configure network proxy if necessary
       # networking.proxy.default = "http://user:password@proxy:port/";
@@ -112,7 +111,7 @@
 
       zramSwap = {
         enable = true;
-        memoryPercent = 50;
+        ent = 50;
       };
 
       services.logind.settings.Login.HandleLidSwitch = "suspend";

@@ -15,17 +15,27 @@
       inherit pkgs;
       settings = {
         layer = "top";
-        position = "top";
+        position = "bottom";
         height = 34;
         spacing = 0;
-        margin-top = 6;
-        margin-left = 8;
-        margin-right = 8;
-        margin-bottom = 6;
+        margin-top = 0;
+        margin-left = 0;
+        margin-right = 0;
+        margin-bottom = 0;
 
-        modules-left = [ "niri/workspaces" "niri/window" ];
+        modules-left = [
+          "niri/workspaces"
+          "niri/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" "tray" ];
+        modules-right = [
+          "cpu"
+          "memory"
+          "pulseaudio"
+          "network"
+          "battery"
+          "tray"
+        ];
 
         "niri/workspaces" = {
           format = "{index}";
@@ -79,66 +89,142 @@
         battery = {
           format = "BAT {icon} {capacity}%";
           format-icons = {
-            default = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-            charging = [ "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
+            default = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
+            charging = [
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
           };
-          states = { warning = 20; critical = 10; };
+          states = {
+            warning = 20;
+            critical = 10;
+          };
         };
         network = {
           format = "NET";
           format-wifi = "NET {icon} {signalStrength}%";
           format-ethernet = "NET  eth";
           format-disconnected = "NET ✕";
-          format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+          format-icons = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
           tooltip-format = "{ifname}: {ipaddr}";
         };
         pulseaudio = {
           format = "VOL {icon} {volume}%";
-          format-icons = { default = [ "󰕿" "󰖀" "󰕾" ]; };
+          format-icons = {
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
+          };
           format-muted = "VOL 󰝟";
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           scroll-step = 5;
         };
-        tray = { spacing = 8; };
+        tray = {
+          spacing = 8;
+        };
       };
 
       "style.css".content = ''
+        @define-color background #060708;
+        @define-color foreground #c8ccd4;
+
         * {
           font-family: "Iosevka Nerd Font Mono", monospace;
           font-size: 13px;
           min-height: 0;
+          border: none;
         }
+
         window#waybar {
-          background: transparent;
-          color: #c8ccd4;
+          background: @background;
+          color: @foreground;
         }
 
         /* module islands */
         .modules-left,
         .modules-center,
         .modules-right {
-          background: #1b1e26;
-          border: 1px solid #2a2f3a;
-          border-radius: 10px;
+          background: transparent;
           padding: 0 6px;
-          margin: 0 4px;
+        }
+
+        #workspaces {
+          margin: 0px 4px;
+          padding: 0px 0px;
+          padding-top: 2px;
         }
 
         #workspaces button {
-          padding: 0 9px;
-          margin: 3px 2px;
-          color: #6b7280;
-          background: transparent;
-          border-radius: 7px;
+          all: initial;
+          color: @foreground;
+          padding: 0px 2px;
+          min-width: 15px;
+          margin: 0px 0px;
+          border: none;
+          opacity: 0.75;
+          font-weight: bold;
+          font-size: 14px;
         }
-        #workspaces button:hover {
-          background: #262b36;
-          color: #c8ccd4;
-        }
+
         #workspaces button.active {
-          background: #3b5b7f;
-          color: #dfe6f0;
+          color: @background;
+          background: @foreground;
+          opacity: 0.75;
+          font-weight: bold;
+          font-size: 14px;
         }
+
+        #workspaces button.empty:hover,
+        #workspaces button:hover {
+          background: transparent;
+          color: alpha(@foreground, 1);
+          opacity: 1;
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        #workspaces button.empty {
+          opacity: 0.4;
+          color: alpha(@foreground, 0.45);
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        #workspaces button.empty.active {
+          opacity: 0.75;
+          background-color: @foreground;
+          color: @background;
+          font-weight: bold;
+          font-size: 14px;
+        }
+
         #workspaces button.urgent {
           background: #7f4a5a;
           color: #f0dfe4;
