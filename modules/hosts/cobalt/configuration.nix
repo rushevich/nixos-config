@@ -70,7 +70,9 @@
         papirus-icon-theme
         nautilus
         man-pages
-        openconnect 
+        openconnect
+        usbutils
+
       ];
 
       # thanks to: https://discourse.nixos.org/t/some-manpage-related-stuff-you-might-want-to-turn-on/38835
@@ -79,6 +81,14 @@
         man.generateCaches = true;
         nixos.includeAllModules = true;
       };
+
+      services.udev.extraRules = ''
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
+      '';
 
       security.polkit.enable = true;
       xdg.portal = {

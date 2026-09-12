@@ -73,7 +73,15 @@
         papirus-icon-theme
         openconnect
         usbutils
+        man-pages
       ];
+
+      # thanks to: https://discourse.nixos.org/t/some-manpage-related-stuff-you-might-want-to-turn-on/38835
+      documentation = {
+        dev.enable = true;
+        man.generateCaches = true;
+        nixos.includeAllModules = true;
+      };
 
       services.udev.extraRules = ''
         SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"

@@ -13,7 +13,7 @@
     # scripting
     python3
 
-    # language servers (for editor LSP everywhere)
+    # language servers
     lua-language-server
     pyright
     slang-server
@@ -32,4 +32,9 @@
     nixfmt
     nil # nix language server
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }
