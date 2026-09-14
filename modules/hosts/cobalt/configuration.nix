@@ -23,7 +23,7 @@
         self.nixosModules.hyprlock
         self.nixosModules.imv
         self.nixosModules.fuzzel
-
+        self.nixosModules.mail
       ];
 
       # Use the systemd-boot EFI boot loader.

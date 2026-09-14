@@ -157,7 +157,7 @@
 
         * {
           font-family: "Iosevka Nerd Font Mono", monospace;
-          font-size: 13px;
+          font-size: 14px;
           min-height: 0;
           border: none;
         }

@@ -4,9 +4,12 @@
   lib,
   ...
 }:
+let
+  myEmacs = pkgs.emacs31-pgtk.pkgs.withPackages (epkgs: [ epkgs.notmuch ]);
+in
 {
   home.packages = with pkgs; [
-    emacs31-pgtk
+    myEmacs
     ripgrep
     fd
     git
@@ -22,6 +25,6 @@
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs31-pgtk;
+    package = myEmacs;
   };
 }
