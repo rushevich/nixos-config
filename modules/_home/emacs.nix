@@ -6,10 +6,29 @@
 }:
 let
   myEmacs = pkgs.emacs31-pgtk.pkgs.withPackages (epkgs: [ epkgs.notmuch ]);
+  myCookies =
+    pkgs.writers.writePython3Bin "my_cookies"
+      {
+        libraries = [ pkgs.python3Packages.browser-cookie3 ];
+      }
+      ''
+        import glob
+        import os
+        import browser_cookie3
+
+        files = glob.glob(os.path.expanduser("~/.config/zen/*/cookies.sqlite"))
+        jar = browser_cookie3.firefox(
+            cookie_file=max(files, key=os.path.getmtime),
+            domain_name="leetcode.com",
+        )
+        for c in jar:
+            print(c.name, c.value)
+      '';
 in
 {
   home.packages = with pkgs; [
     myEmacs
+    myCookies
     ripgrep
     fd
     git
