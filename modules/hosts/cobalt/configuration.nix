@@ -13,7 +13,7 @@
         self.nixosModules.cobaltHardware
         self.nixosModules.alacritty
         self.nixosModules.niri
-        self.nixosModules.greetd
+        self.nixosModules.sddm
         self.nixosModules.fonts
         self.nixosModules.zen
         self.nixosModules.hm
@@ -24,6 +24,8 @@
         self.nixosModules.imv
         self.nixosModules.fuzzel
         self.nixosModules.mail
+        self.nixosModules.nvidia
+        self.nixosModules.unfree
       ];
 
       # Use the systemd-boot EFI boot loader.

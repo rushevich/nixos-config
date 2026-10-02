@@ -1,0 +1,137 @@
+[
+  {
+    "data": [
+      {
+        "abmLevel": 0,
+        "allowDdcCi": true,
+        "allowSdrSoftwareBrightness": true,
+        "autoBrightnessCurve": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "autoRotation": "InTabletMode",
+        "automaticBrightness": false,
+        "brightness": 1,
+        "colorPowerTradeoff": "PreferEfficiency",
+        "colorProfileSource": "sRGB",
+        "connectorName": "HDMI-A-1",
+        "customModes": [],
+        "detectedDdcCi": false,
+        "edidHash": "e6d1d42a7ce1a07b2b46041583cc4551",
+        "edidIdentifier": "ACR 1707 2190491001 29 2018 0",
+        "edrPolicy": "always",
+        "hdrColorProfileSource": "EDID",
+        "hdrIccProfilePath": "",
+        "highDynamicRange": false,
+        "iccProfilePath": "",
+        "maxBitsPerColor": 0,
+        "mode": {
+          "flags": 1,
+          "height": 1080,
+          "refreshRate": 74973,
+          "width": 1920
+        },
+        "overscan": 0,
+        "rgbRange": "Automatic",
+        "scale": 1,
+        "sdrBrightness": 200,
+        "sdrGamutWideness": 0,
+        "sharpness": 0,
+        "transform": "Normal",
+        "uuid": "a5217327-7b31-480d-826d-341ddf29caf5",
+        "vrrPolicy": "Never",
+        "wideColorGamut": false
+      },
+      {
+        "abmLevel": 0,
+        "allowDdcCi": true,
+        "allowSdrSoftwareBrightness": true,
+        "autoBrightnessCurve": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "autoRotation": "InTabletMode",
+        "automaticBrightness": false,
+        "brightness": 1,
+        "colorPowerTradeoff": "PreferEfficiency",
+        "colorProfileSource": "sRGB",
+        "connectorName": "DP-3",
+        "customModes": [],
+        "detectedDdcCi": false,
+        "edidHash": "d1fc63dd32dbd227e9edec8bbbc78075",
+        "edidIdentifier": "XEC 8192 17 17 2024 0",
+        "edrPolicy": "always",
+        "hdrColorProfileSource": "EDID",
+        "hdrIccProfilePath": "",
+        "highDynamicRange": false,
+        "iccProfilePath": "",
+        "maxBitsPerColor": 0,
+        "mode": {
+          "flags": 0,
+          "height": 1440,
+          "refreshRate": 180002,
+          "width": 2560
+        },
+        "overscan": 0,
+        "rgbRange": "Automatic",
+        "scale": 1,
+        "sdrBrightness": 417,
+        "sdrGamutWideness": 0,
+        "sharpness": 0,
+        "transform": "Normal",
+        "uuid": "fecca121-348b-4d8d-9e88-d29d9ab64be1",
+        "vrrPolicy": "Never",
+        "wideColorGamut": false
+      }
+    ],
+    "name": "outputs"
+  },
+  {
+    "data": [
+      {
+        "lidClosed": false,
+        "outputs": [
+          {
+            "enabled": true,
+            "outputIndex": 0,
+            "position": {
+              "x": 2560,
+              "y": 0
+            },
+            "priority": 1,
+            "replicationSource": ""
+          },
+          {
+            "enabled": true,
+            "outputIndex": 1,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "priority": 0,
+            "replicationSource": ""
+          }
+        ]
+      }
+    ],
+    "name": "setups"
+  }
+]

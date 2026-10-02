@@ -14,7 +14,7 @@
         self.nixosModules.platinumHardware
         self.nixosModules.alacritty
         self.nixosModules.niri
-        self.nixosModules.greetd
+        self.nixosModules.sddm
         self.nixosModules.fonts
         self.nixosModules.zen
         self.nixosModules.hm
