@@ -5,6 +5,27 @@
     let
       inherit (pkgs.stdenv.hostPlatform) system;
       inherit (self.packages.${system}) myNotmuch myMbsync myMsmtp;
+      mailPreSync = pkgs.writeShellScript "mail-pre-sync" ''
+        set -eu
+        nm=${myNotmuch}/bin/notmuch
+        root="$HOME/mail/gmail"
+
+        move() {
+          dest="$root/$2/cur"
+          mkdir -p "$dest"
+          $nm search --output=files --format=text0 -- "$1" |
+            while IFS= read -r -d "" f; do
+              [ -e "$f" ] || continue
+              # strip mbsync's UID so it treats this as a new message in the target folder
+              base=$(basename "$f" | sed 's/,U=[0-9]*//')
+              mv "$f" "$dest/$base"
+            done
+        }
+
+        move 'tag:deleted and not folder:gmail/Trash' Trash
+        move 'tag:spam and not folder:gmail/Spam' Spam
+        $nm new --no-hooks --quiet
+      '';
     in
     {
       environment.systemPackages = [
@@ -24,7 +45,10 @@
         description = "Mailbox synchronization";
         serviceConfig = {
           Type = "oneshot";
-          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/mail/gmail";
+          ExecStartPre = [
+            "${pkgs.coreutils}/bin/mkdir -p %h/mail/gmail"
+            "${mailPreSync}"
+          ];
           ExecStart = "${myMbsync}/bin/mbsync -a";
           ExecStartPost = "${myNotmuch}/bin/notmuch new";
         };
@@ -52,6 +76,7 @@
         $nm tag +sent -new -unread -- tag:new and folder:gmail/Sent
         $nm tag +draft -new        -- tag:new and folder:gmail/Drafts
         $nm tag +spam -new         -- tag:new and folder:gmail/Spam
+        $nm tag +deleted -inbox -unread -new -- tag:new and folder:gmail/Trash
         $nm tag -new               -- tag:new
       '';
 
