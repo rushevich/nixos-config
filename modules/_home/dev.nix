@@ -27,6 +27,8 @@
     tree
     curl
     wget
+    zip
+    unzip
 
     # nix tooling
     nixfmt
