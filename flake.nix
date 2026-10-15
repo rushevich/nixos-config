@@ -8,15 +8,20 @@
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
     zen-browser = {
-	url = "github:youwen5/zen-browser-flake";
-	inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dotfiles = {
+      url = "github:rushevich/general-dotfiles";
+      flake = false;
     };
 
     home-manager = {
-	url = "github:nix-community/home-manager";
-	inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }

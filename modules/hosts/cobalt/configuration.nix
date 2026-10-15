@@ -31,10 +31,8 @@
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
-
       networking.hostName = "cobalt"; # Define your hostname.
 
-      # Configure network connections interactively with nmcli or nmtui.
       networking.networkmanager.enable = true;
 
       # Set your time zone.
@@ -76,6 +74,7 @@
         usbutils
 
       ];
+      services.gvfs.enable = true;
 
       # thanks to: https://discourse.nixos.org/t/some-manpage-related-stuff-you-might-want-to-turn-on/38835
       documentation = {

@@ -1,4 +1,9 @@
- { self, inputs, ... }: {
+{ self, inputs, ... }:
+let
+  c = import ../_lib/palette.nix inputs;
+  rgb = name: "rgb(${c.hex.${name}})";
+in
+{
   flake.nixosModules.hyprlock = { pkgs, ... }: {
     security.pam.services.hyprlock = {};
     environment.systemPackages = [
@@ -31,6 +36,15 @@
             monitor = "";
             dots_center = true;
             fade_on_empty = false;
+            rounding = 0;
+            outline_thickness = 2;
+            outer_color = rgb "steel";
+            inner_color = rgb "ink-soft";
+            font_color = rgb "fg";
+            check_color = rgb "sand";
+            fail_color = rgb "alert";
+            capslock_color = rgb "caret";
+            placeholder_text = "<span foreground='${c.fg-dim}'>password</span>";
           }
         ];
       };

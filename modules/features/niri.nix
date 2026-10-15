@@ -1,16 +1,26 @@
 { self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, lib, config, ... }: {
-    programs.niri = {
-      enable = true;
-      package = if config.networking.hostName == "platinum"
-                then self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-laptop
-                else self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-desktop;
+  flake.nixosModules.niri =
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
+    {
+      programs.niri = {
+        enable = true;
+        package =
+          if config.networking.hostName == "platinum" then
+            self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-laptop
+          else
+            self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri-desktop;
+      };
     };
-  };
-  perSystem = { pkgs, lib, ... }:
+  perSystem =
+    { pkgs, lib, ... }:
     let
       commonSettings = {
-        prefer-no-csd = _: {};
+        prefer-no-csd = _: { };
         environment = {
           XCURSOR_THEME = "Bibata-Modern-Classic";
           XCURSOR_SIZE = "24";
@@ -19,74 +29,104 @@
           xcursor-theme = "Bibata-Modern-Classic";
           xcursor-size = 24;
         };
-        
-	      input = {
-		      keyboard = {
-			      xkb.layout = "us,ua";
-			      xkb.options = "caps:ctrl_modifier";
-		      };
 
-		      touchpad = {
-			      natural-scroll = _: {};
-			      scroll-method = "two-finger";
-			      scroll-factor = 0.5;   # slower than default
-				    tap = _: {};
-			      accel-profile = "flat";
-		      };
-	      };
+        input = {
+          keyboard = {
+            xkb.layout = "us,ua";
+            xkb.options = "caps:ctrl_modifier";
+          };
+
+          touchpad = {
+            natural-scroll = _: { };
+            scroll-method = "two-finger";
+            scroll-factor = 0.5; # slower than default
+            tap = _: { };
+            accel-profile = "flat";
+          };
+        };
         layout.gaps = 5;
 
-	      spawn-at-startup = [ 
-		      [ (lib.getExe pkgs.swaybg) "-i" "${../../wallpapers/w3.jpg}" "-m" "fill" ]
+        spawn-at-startup = [
+          [
+            (lib.getExe pkgs.swaybg)
+            "-i"
+            "${../../wallpapers/w3.jpg}"
+            "-m"
+            "fill"
+          ]
           [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]
-	      ];
+          [
+            (lib.getExe' pkgs.wl-clipboard "wl-paste")
+            "--watch"
+            (lib.getExe pkgs.cliphist)
+            "store"
+          ]
+        ];
 
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
-	      hotkey-overlay.skip-at-startup = _: {};
+        hotkey-overlay.skip-at-startup = _: { };
 
         binds = {
+          # Fuzzel
+          "Mod+Ctrl+V".spawn = [ "fuzzel-clip" ];
+          "Mod+W".spawn = [ "fuzzel-windows" ];
+          "Mod+A".spawn = [
+            "fuzzel-audio"
+            "sink"
+          ];
+          "Mod+Shift+A".spawn = [
+            "fuzzel-audio"
+            "source"
+          ];
+          "Mod+Shift+Escape".spawn = [ "fuzzel-power" ];
+
           # Hotkey overlay
-          "Mod+Shift+Slash".show-hotkey-overlay = _: {};
+          "Mod+Shift+Slash".show-hotkey-overlay = _: { };
 
           # Programs
           "Mod+T".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty) ];
           "Mod+Space".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel) ];
           "Super+Alt+L".spawn = [ (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myHyprlock) ];
-	        "Mod+B".spawn = [ "zen" ];
-          "Mod+E".spawn = [ "emacsclient" "-c" "-a" "\"\"" ];
+          "Mod+B".spawn = [ "zen" ];
+          "Mod+E".spawn = [
+            "emacsclient"
+            "-c"
+            "-a"
+            "\"\""
+          ];
 
           # Window management
-          "Mod+Q".close-window = _: {};
-          "Mod+F".maximize-column = _: {};
-          "Mod+Shift+F".fullscreen-window = _: {};
-          "Mod+C".center-column = _: {};
-          "Mod+V".toggle-window-floating = _: {};
-          "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
+          "Mod+Q".close-window = _: { };
+          "Mod+F".maximize-column = _: { };
+          "Mod+Shift+F".fullscreen-window = _: { };
+          "Mod+C".center-column = _: { };
+          "Mod+V".toggle-window-floating = _: { };
+          "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: { };
 
           # Focus movement (arrows + hjkl)
-          "Mod+Left".focus-column-left = _: {};
-          "Mod+Right".focus-column-right = _: {};
-          "Mod+Up".focus-window-or-workspace-up = _: {};
-          "Mod+Down".focus-window-or-workspace-down = _: {};
-          "Mod+H".focus-column-left = _: {};
-          "Mod+L".focus-column-right = _: {};
-          "Mod+K".focus-window-up = _: {};
-          "Mod+J".focus-window-down = _: {};
+          "Mod+Left".focus-column-left = _: { };
+          "Mod+Right".focus-column-right = _: { };
+          "Mod+Up".focus-window-or-workspace-up = _: { };
+          "Mod+Down".focus-window-or-workspace-down = _: { };
+          "Mod+H".focus-column-left = _: { };
+          "Mod+L".focus-column-right = _: { };
+          "Mod+K".focus-window-up = _: { };
+          "Mod+J".focus-window-down = _: { };
 
           # Move windows / columns
-          "Mod+Shift+Left".move-column-left = _: {};
-          "Mod+Shift+Right".move-column-right = _: {};
-          "Mod+Shift+Up".move-window-up = _: {};
-          "Mod+Shift+Down".move-window-down = _: {};
-          "Mod+Shift+H".move-column-left = _: {};
-          "Mod+Shift+L".move-column-right = _: {};
-          "Mod+Shift+K".move-window-up = _: {};
-          "Mod+Shift+J".move-window-down = _: {};
+          "Mod+Shift+Left".move-column-left = _: { };
+          "Mod+Shift+Right".move-column-right = _: { };
+          "Mod+Shift+Up".move-window-up = _: { };
+          "Mod+Shift+Down".move-window-down = _: { };
+          "Mod+Shift+H".move-column-left = _: { };
+          "Mod+Shift+L".move-column-right = _: { };
+          "Mod+Shift+K".move-window-up = _: { };
+          "Mod+Shift+J".move-window-down = _: { };
 
           # Workspaces (niri stacks them vertically)
-          "Mod+Page_Up".focus-workspace-up = _: {};
-          "Mod+Page_Down".focus-workspace-down = _: {};
+          "Mod+Page_Up".focus-workspace-up = _: { };
+          "Mod+Page_Down".focus-workspace-down = _: { };
           "Mod+1".focus-workspace = 1;
           "Mod+2".focus-workspace = 2;
           "Mod+3".focus-workspace = 3;
@@ -99,51 +139,79 @@
           "Mod+Shift+5".move-column-to-workspace = 5;
 
           # sizing / consuming
-          "Mod+R".switch-preset-column-width = _: {};
+          "Mod+R".switch-preset-column-width = _: { };
           "Mod+Minus".set-column-width = "-10%";
           "Mod+Equal".set-column-width = "+10%";
-          "Mod+Comma".consume-window-into-column = _: {};
-          "Mod+Period".expel-window-from-column = _: {};
+          "Mod+Comma".consume-window-into-column = _: { };
+          "Mod+Period".expel-window-from-column = _: { };
           "Mod+Shift+Minus".set-window-height = "-10%";
           "Mod+Shift+Equal".set-window-height = "+10%";
-          "Mod+Ctrl+R".reset-window-height = _: {};
+          "Mod+Ctrl+R".reset-window-height = _: { };
 
           # Screenshots
           "Print".spawn = [ "screenshot-region" ];
-          "Ctrl+Print".screenshot-screen = _: {};
-          "Alt+Print".screenshot-window = _: {};
+          "Ctrl+Print".screenshot-screen = _: { };
+          "Alt+Print".screenshot-window = _: { };
 
           # Volume
-          "XF86AudioRaiseVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+" ];
-          "XF86AudioLowerVolume".spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-" ];
-          "XF86AudioMute".spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+          "XF86AudioRaiseVolume".spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "0.05+"
+          ];
+          "XF86AudioLowerVolume".spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "0.05-"
+          ];
+          "XF86AudioMute".spawn = [
+            "wpctl"
+            "set-mute"
+            "@DEFAULT_AUDIO_SINK@"
+            "toggle"
+          ];
 
           # Brightness
-          "XF86MonBrightnessUp".spawn = [ "brightnessctl" "set" "5%+" ];
-          "XF86MonBrightnessDown".spawn = [ "brightnessctl" "set" "5%-" ];
+          "XF86MonBrightnessUp".spawn = [
+            "brightnessctl"
+            "set"
+            "5%+"
+          ];
+          "XF86MonBrightnessDown".spawn = [
+            "brightnessctl"
+            "set"
+            "5%-"
+          ];
 
           # Session
-          "Mod+Shift+E".quit = _: {};
-          "Mod+Shift+P".power-off-monitors = _: {};
+          "Mod+Shift+E".quit = _: { };
+          "Mod+Shift+P".power-off-monitors = _: { };
 
           # General
-          "Mod+Escape".spawn = [ "wlogout" "-b" "5" ];
-          "Mod+O".toggle-overview = _: {};
+          "Mod+Escape".spawn = [
+            "wlogout"
+            "-b"
+            "5"
+          ];
+          "Mod+O".toggle-overview = _: { };
 
           # Monitors
-          
-          "Mod+BracketLeft".focus-monitor-left = _: {};
-          "Mod+BracketRight".focus-monitor-right = _: {};
-          
-          "Mod+Shift+BracketLeft".move-column-to-monitor-left = _: {};
-          "Mod+Shift+BracketRight".move-column-to-monitor-right = _: {};
 
-          "Mod+Ctrl+BracketLeft".move-workspace-to-monitor-left = _: {};
-          "Mod+Ctrl+BracketRight".move-workspace-to-monitor-right = _: {};
+          "Mod+BracketLeft".focus-monitor-left = _: { };
+          "Mod+BracketRight".focus-monitor-right = _: { };
+
+          "Mod+Shift+BracketLeft".move-column-to-monitor-left = _: { };
+          "Mod+Shift+BracketRight".move-column-to-monitor-right = _: { };
+
+          "Mod+Ctrl+BracketLeft".move-workspace-to-monitor-left = _: { };
+          "Mod+Ctrl+BracketRight".move-workspace-to-monitor-right = _: { };
         };
-	      
+
       };
-    in {
+    in
+    {
       packages.myNiri-laptop = inputs.wrapper-modules.wrappers.niri.wrap {
         inherit pkgs;
         settings = commonSettings;
@@ -155,11 +223,21 @@
           outputs = {
             "DP-3" = {
               mode = "2560x1440@165.001";
-              position = _: { props = { x = 0; y = 0; }; };
+              position = _: {
+                props = {
+                  x = 0;
+                  y = 0;
+                };
+              };
             };
             "HDMI-A-1" = {
               mode = "1920x1080@60.000";
-              position = _: { props = { x = 2560; y = 0; }; };
+              position = _: {
+                props = {
+                  x = 2560;
+                  y = 0;
+                };
+              };
             };
           };
         };

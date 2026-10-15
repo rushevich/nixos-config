@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+let
+  c = import ../_lib/palette.nix inputs;
+in
+{
   flake.nixosModules.alacritty = { pkgs, lib, ... }: {
     environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty ];
   };
@@ -25,58 +29,75 @@
           size = 12;
         };
 
-        mouse = {
-          hide_when_typing = true;
-        };
-
-        colors = {
-          primary = {
-            background = "#060708"; # black (default bg)
-            foreground = "#e0eeee"; # azure-light (default fg)
-          };
-
-          cursor = {
-            text = "#060708"; # black
-            cursor = "#7f7f7f"; # grey-50
-          };
-
-          selection = {
-            text = "#060708"; # black (region fg)
-            background = "#778899"; # slate-grey (region bg)
-          };
-
-          normal = {
-            black = "#171717"; # dark-grey
-            red = "#cd0000"; # red
-            green = "#668b8b"; # pale-turq (stands in for green)
-            yellow = "#eee685"; # khaki
-            blue = "#4682b4"; # blue-steel
-            magenta = "#9fb6cd"; # slate-blue
-            cyan = "#008b8b"; # cyan-dark
-            white = "#b0c4de"; # steel-light
-          };
-
-          bright = {
-            black = "#7d7d7d"; # grey-49
-            red = "#cd0000"; # red (no brighter variant in palette)
-            green = "#8ee5ee"; # blue-cadet
-            yellow = "#eee685"; # khaki
-            blue = "#00b2ee"; # blue-bright
-            magenta = "#add8e6"; # blue-light
-            cyan = "#8ee5ee"; # blue-cadet
-            white = "#efefef"; # off-white
-          };
-        };
-
-        scrolling = {
-          history = 10000;
-        };
+        mouse.hide_when_typing = true;
+        scrolling.history = 10000;
 
         cursor = {
           style = {
             shape = "Block";
             blinking = "Off";
           };
+          vi_mode_style = {
+            shape = "Underline";
+            blinking = "Off";
+          };
+        };
+
+        colors = {
+          primary = {
+            background = c.night; # default bg
+            foreground = c.fg; # default fg
+            dim_foreground = c.fg-dim; # shadow
+            bright_foreground = c.fg-hi;
+          };
+
+          cursor = {
+            text = c.night;
+            cursor = c.caret;
+          }; # cursor face
+          vi_mode_cursor = {
+            text = c.night;
+            cursor = c.cadet;
+          };
+
+          selection = {
+            text = "CellForeground";
+            background = c.sel;
+          };
+
+          search = {
+            matches = {
+              foreground = c.fg-hi;
+              background = c.dodger;
+            }; # lazy-highlight
+            focused_match = {
+              foreground = c.night;
+              background = c.bright;
+            }; # isearch
+          };
+
+          hints = {
+            start = {
+              foreground = c.night;
+              background = c.sand;
+            };
+            end = {
+              foreground = c.night;
+              background = c.cadet;
+            };
+          };
+
+          footer_bar = {
+            foreground = c.fg-dim;
+            background = c.ink-soft;
+          }; # header-line
+          line_indicator = {
+            foreground = c.cadet;
+            background = c.ink-soft;
+          };
+
+          normal = c.ansi.normal;
+          bright = c.ansi.bright;
         };
       };
     };

@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+let
+  c = import ../_lib/palette.nix inputs;
+in
+{
   flake.nixosModules.mako = { pkgs, lib, ... }: {
     systemd.user.services.mako = {
       wantedBy = [ "graphical-session.target" ];
@@ -14,20 +18,18 @@
     packages.myMako = inputs.wrapper-modules.wrappers.mako.wrap {
       inherit pkgs;
       settings = {
-        # global settings
         font = "Iosevka Nerd Font Mono-10";
-        background-color = "#1e1e2e";
-        text-color = "#cdd6f4";
-        border-color = "#89b4fa";
-        border-size = 2;
-        border-radius = 8;
+        background-color = c.ink-soft;   # same surface as corfu / eldoc-box
+        text-color = c.fg;
+        border-color = c.slate;          # corfu-border
+        progress-color = "over ${c.sel}";
+        border-size = 1;
+        border-radius = 0;               # square, like fuzzel
+        padding = "8";
         default-timeout = 5000;
         icon-location = "left";
-        # overrides for high-urgency notifications
-        "urgency=high" = {
-          border-color = "#f38ba8";
-          default-timeout = 0;
-        };
+        "urgency=low" = { text-color = c.fg-dim; border-color = c.wash-dim; };
+        "urgency=high" = { border-color = c.alert; default-timeout = 0; };
       };
     };
   };

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792070547,
+        "narHash": "sha256-RfIsDFxe5mzYIhX0dPs0wx4it9b7haxUwwLdY1ETaCU=",
+        "owner": "rushevich",
+        "repo": "general-dotfiles",
+        "rev": "2c86510801857a3576c92a5ce855679ed473d880",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rushevich",
+        "repo": "general-dotfiles",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -102,6 +118,7 @@
     },
     "root": {
       "inputs": {
+        "dotfiles": "dotfiles",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
