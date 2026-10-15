@@ -157,6 +157,31 @@
       # Or disable the firewall altogether.
       # networking.firewall.enable = false;
 
+      networking.networkmanager.ensureProfiles = {
+        environmentFiles = [ "/etc/secrets/eduroam.env" ];
+        profiles.eduroam = {
+          connection = {
+            id = "eduroam";
+            type = "wifi";
+          };
+          wifi = {
+            ssid = "eduroam";
+            mode = "infrastructure";
+          };
+          wifi-security.key-mgmt = "wpa-eap";
+          "802-1x" = {
+            eap = "peap;";
+            phase2-auth = "mschapv2";
+            identity = "rushevich.g@ufl.edu";
+            password = "$EDUROAM_PASSWORD";
+            ca-cert = "/etc/ssl/certs/ca-certificates.crt";
+            domain-suffix-match = "ufl.edu";
+          };
+          ipv4.method = "auto";
+          ipv6.method = "auto";
+        };
+      };
+
       # Copy the NixOS configuration file and link it from the resulting system
       # (/run/current-system/configuration.nix). This is useful in case you
       # accidentally delete configuration.nix.
