@@ -24,11 +24,19 @@ let
         for c in jar:
             print(c.name, c.value)
       '';
+  myTex = pkgs.texliveMedium.withPackages (
+    ps: with ps; [
+      capt-of
+      wrapfig
+      ulem
+    ]
+  );
 in
 {
   home.packages = with pkgs; [
     myEmacs
     myCookies
+    myTex
     ripgrep
     fd
     git
