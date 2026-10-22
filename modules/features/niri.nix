@@ -209,6 +209,16 @@
           "Mod+Ctrl+BracketRight".move-workspace-to-monitor-right = _: { };
         };
 
+        window-rules = [
+          {
+            matches = [
+              { app-id = "^zen$"; }
+              { app-id = "^Alacritty$"; }
+              { app-id = "^emacs$"; }
+            ];
+            open-maximized = true;
+          }
+        ];
       };
     in
     {
