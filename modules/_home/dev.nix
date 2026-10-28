@@ -33,6 +33,9 @@
     # nix tooling
     nixfmt
     nil # nix language server
+
+    # compprog
+    online-judge-tools
   ];
 
   programs.direnv = {
