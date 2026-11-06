@@ -181,7 +181,7 @@
           ipv6.method = "auto";
         };
       };
-
+      networking.firewall.trustedInterfaces = [ "enp1s0f0" ];
       # Copy the NixOS configuration file and link it from the resulting system
       # (/run/current-system/configuration.nix). This is useful in case you
       # accidentally delete configuration.nix.
