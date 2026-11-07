@@ -44,7 +44,7 @@ in
             check_color = rgb "sand";
             fail_color = rgb "alert";
             capslock_color = rgb "caret";
-            placeholder_text = "<span foreground='#${c.hex.fg-dim}'>password</span>";
+            placeholder_text = "<span foreground='##${c.hex.fg-dim}'>password</span>";
           }
         ];
       };
