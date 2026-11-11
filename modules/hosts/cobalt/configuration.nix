@@ -26,6 +26,8 @@
         self.nixosModules.mail
         self.nixosModules.nvidia
         self.nixosModules.unfree
+        self.nixosModules.learnharness
+        self.nixosModules.syncthing
       ];
 
       # Use the systemd-boot EFI boot loader.
