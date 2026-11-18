@@ -17,8 +17,7 @@
       networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 ];
 
       users.users.george.openssh.authorizedKeys.keys = [
-        # platinum: paste the output of `cat ~/.ssh/id_ed25519.pub` here
-        "ssh-ed25519 AAAA... george@platinum"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0QHOgtHwWSbm/O4plQT68iU8bASYATcW1KQj7iCGuT george@rushevich.com"
       ];
     };
 }
