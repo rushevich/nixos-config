@@ -27,6 +27,7 @@
         self.nixosModules.mail
         self.nixosModules.learnharness
         self.nixosModules.syncthing
+        self.nixosModules.tailscale
       ];
 
       # Use the systemd-boot EFI boot loader.
@@ -35,7 +36,6 @@
 
       networking.hostName = "platinum";
 
-      services.tailscale.enable = true;
       # Configure network connections interactively with nmcli or nmtui.
       networking.networkmanager.enable = true;
 

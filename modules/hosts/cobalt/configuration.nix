@@ -28,6 +28,8 @@
         self.nixosModules.unfree
         self.nixosModules.learnharness
         self.nixosModules.syncthing
+        self.nixosModules.tailscale
+        self.nixosModules.sshd
       ];
 
       # Use the systemd-boot EFI boot loader.
@@ -36,7 +38,6 @@
       networking.hostName = "cobalt"; # Define your hostname.
 
       networking.networkmanager.enable = true;
-      services.tailscale.enable = true;
 
       # Set your time zone.
       # time.timeZone = "America/New_York";
