@@ -29,6 +29,12 @@ let
       capt-of
       wrapfig
       ulem
+      fvextra
+      tcolorbox
+      upquote
+      lineno
+      pdfcol
+      tikzfill
     ]
   );
 in

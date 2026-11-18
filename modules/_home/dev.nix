@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     # C/C++ toolchain
-    gcc16
+    (lib.hiPrio gcc16)
+    (clang.override { gccForLibs = gcc16.cc; })
     clang-tools # clangd
     cmake
     ninja
